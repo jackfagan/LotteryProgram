@@ -12,41 +12,39 @@ namespace LotteryApp.Helpers
             return inputstr;
         }
 
-        //public static List<int> UsersChosenNumbers(List<string> input)
-        //{
-        //    //split input list and look through each string of numbers in input
-        //    List<int> LotteryLine = NumberValidator(input);
-        //    return LotteryLine;
-        //}
-
-        public static List<int> NumberValidator(string inputstr)
+        public static List<int> UsersChosenNumbers(string input)
         {
-            inputstr = inputstr.Replace(" ", "").Replace("and", ",").Trim();
-            string[] numberList = inputstr.Split(',', '+', '&');
-
-            var groupedNumbers = numberList.GroupBy(n => n);
-
-            foreach (var grp in groupedNumbers)
-            {
-                if (grp.Count() > 1)
-                {
-                    Program.ErrorMessage();
-                }
-            }
-
-            numberList.ToList();
-            return numberList.Select(int.Parse).ToList();
+            List<int> LotteryLine = NumberValidator(input);
+            return LotteryLine;
         }
 
-        public static List<int> GetLuckyDip()
+        public static List<int> NumberValidator(string input)
+        {
+            input = input.Replace(" ", "").Replace("and", ",").Trim();
+            string[] numberString = input.Split(',', '+', '&');
+
+            List<int> numberList = numberString.Select(x => Int32.Parse(x)).ToList();
+            numberList.GroupBy(n => n);
+            return numberList;
+
+        }
+
+        public static List<int> GetLuckyDip(Random rnd)
         {
             List<int> LotteryLine = new List<int>();
-            Random rnd = new Random();
 
             for (int a = 1; a < 7; a++)
             {
                 int LuckyDip = LineGenerator(rnd);
-                LotteryLine.Add(LuckyDip);
+
+                if (LotteryLine.Contains(LuckyDip))
+                {
+                    GetWinningNumbers(rnd);
+                }
+                else
+                {
+                    LotteryLine.Add(LuckyDip);
+                }
             }
 
             LotteryLine.Sort();
@@ -59,28 +57,28 @@ namespace LotteryApp.Helpers
             return GeneratedNumber;
         }
 
-        internal static int WinningCalculator(object lotteryLine, List<int> winningLine)
+        internal static int WinningCalculator(object lotteryLine)
         {
             throw new NotImplementedException();
         }
 
-        public static List<int> GetWinningNumbers()
+        public static List<int> GetWinningNumbers(Random rnd)
         {
             List<int> WinningNumbers = new List<int>();
-            Random rnd = new Random();
+
             for (int a = 1; a < 7; a++)
             {
                 int WinningNumber = WinnerNumbersGenerator(rnd);
-                bool alreadyExist = WinningNumbers.Contains(WinningNumber);
 
-                if (alreadyExist == true)
+                if (WinningNumbers.Contains(WinningNumber))
                 {
-                    GetWinningNumbers();
+                    GetWinningNumbers(rnd);
                 }
                 else
                 {
                     WinningNumbers.Add(WinningNumber);
                 }
+
             }
             WinningNumbers.Sort();
             return WinningNumbers;
@@ -92,11 +90,11 @@ namespace LotteryApp.Helpers
             return WinningNumbers;
         }
 
-        public static List<int> WinningCalculator(List<int> LotteryLine, List<int> WinningLine)
+        public static List<int> WinningCalculator(List<int> OneLine, List<int> WinningLine)
         {
             List<int> Winners = new List<int>();
 
-            foreach (int number in LotteryLine)
+            foreach (int number in OneLine)
             {
                 if (WinningLine.Contains(number))
                 {
