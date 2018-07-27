@@ -22,11 +22,27 @@ namespace LotteryApp.Helpers
         {
             input = input.Replace(" ", "").Replace("and", ",").Trim();
             string[] numberString = input.Split(',', '+', '&');
-
             List<int> numberList = numberString.Select(x => Int32.Parse(x)).ToList();
             numberList.GroupBy(n => n);
-            return numberList;
 
+            foreach (int number in numberList)
+            {
+                if (numberList.Count != 6)
+                {
+                    throw new Exception("You have not entered 6 numbers. Try again...");
+                }
+
+                else if (number > 49 || number < 1)
+                {
+                    throw new Exception("Please  keep your numbers between 1 to 49. Try again...");
+                }
+
+                else if (numberList.Contains(number))
+                {
+                    throw new Exception("Please do not repeat your numbers! Try again...");
+                }
+            }
+            return numberList;
         }
 
         public static List<int> GetLuckyDip(Random rnd)
@@ -78,7 +94,6 @@ namespace LotteryApp.Helpers
                 {
                     WinningNumbers.Add(WinningNumber);
                 }
-
             }
             WinningNumbers.Sort();
             return WinningNumbers;
@@ -138,6 +153,7 @@ namespace LotteryApp.Helpers
                     Prize = 0;
                     break;
             }
+
             return Prize;
         }
     }
