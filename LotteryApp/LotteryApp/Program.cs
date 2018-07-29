@@ -79,8 +79,8 @@ namespace LotteryApp
             {
                 NumberOfTickets();
             }
-            return tickets;
 
+            return tickets;
         }
 
         private static List<int> PrintWinningNumbers(Random rnd)
@@ -94,11 +94,6 @@ namespace LotteryApp
             }
 
             return WinningNumbers;
-        }
-
-        public static void ErrorMessage()
-        {
-            Console.WriteLine("Uh oh! A number has been entered multiple times");
         }
 
         private static void LottoResult(List<List<int>> LotteryLines, int ticket, List<int> WinningLine, int TotalPrize)

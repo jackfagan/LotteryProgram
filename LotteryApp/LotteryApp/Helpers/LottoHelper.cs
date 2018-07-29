@@ -37,9 +37,19 @@ namespace LotteryApp.Helpers
                     throw new Exception("Please  keep your numbers between 1 to 49. Try again...");
                 }
 
-                else if (numberList.Contains(number))
+                List<int> numberslist = new List<int>();
+
+                foreach (int numbers in numberList)
                 {
-                    throw new Exception("Please do not repeat your numbers! Try again...");
+                    if (numberslist.Contains(numbers))
+                    {
+                        throw new Exception("Please do not repeat your numbers! Try again...");
+                    }
+
+                    else
+                    {
+                        numberslist.Add(numbers);
+                    }
                 }
             }
             return numberList;
