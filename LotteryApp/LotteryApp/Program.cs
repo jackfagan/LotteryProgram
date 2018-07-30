@@ -27,7 +27,7 @@ namespace LotteryApp
                 {
                     ticketno = ticketno + 1;
                     List<int> OneLine = new List<int>();
-                    Console.WriteLine($"Please enter ticket {ticketno}'s numbers or enter 'Lucky Dip' for us to generate your 6 numbers");
+                    Console.WriteLine($"Please enter ticket {ticketno}'s numbers (1-49) or enter 'Lucky Dip' for us to generate your 6 numbers");
                     OneLine = InputHandler(rnd, LotteryLine);
                     LotteryLines.Add(OneLine);
                 }
