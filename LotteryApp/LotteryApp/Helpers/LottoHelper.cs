@@ -101,7 +101,7 @@ namespace LotteryApp.Helpers
                 {
                     GetWinningNumbers(rnd);
                 }
-#
+
                 else
                 {
                     winningNumbers.Add(winningNumber);
