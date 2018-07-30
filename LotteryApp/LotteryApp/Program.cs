@@ -84,7 +84,7 @@ namespace LotteryApp
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"{e.Message} Try again...");
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
