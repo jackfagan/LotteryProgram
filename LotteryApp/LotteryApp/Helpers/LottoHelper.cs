@@ -22,12 +22,12 @@ namespace LotteryApp.Helpers
         {
             input = input.Replace(" ", "").Replace("and", ",").Trim();
             string[] numberString = input.Split(',', '+', '&');
-            List<int> numberList = numberString.Select(x => Int32.Parse(x)).ToList();
-            numberList.GroupBy(n => n);
+            List<int> NumberList = numberString.Select(x => Int32.Parse(x)).ToList();
+            NumberList.GroupBy(n => n);
 
-            foreach (int number in numberList)
+            foreach (int number in NumberList)
             {
-                if (numberList.Count != 6)
+                if (NumberList.Count != 6)
                 {
                     throw new Exception("You have not entered 6 numbers. Try again...");
                 }
@@ -37,44 +37,45 @@ namespace LotteryApp.Helpers
                     throw new Exception("Please  keep your numbers between 1 to 49. Try again...");
                 }
 
-                List<int> numberslist = new List<int>();
+                List<int> numberLists = new List<int>();
 
-                foreach (int numbers in numberList)
+                foreach (int numbers in NumberList)
                 {
-                    if (numberslist.Contains(numbers))
+                    if (numberLists.Contains(numbers))
                     {
                         throw new Exception("Please do not repeat your numbers! Try again...");
                     }
 
                     else
                     {
-                        numberslist.Add(numbers);
+                        numberLists.Add(numbers);
                     }
                 }
             }
-            return numberList;
+            return NumberList;
         }
 
         public static List<int> GetLuckyDip(Random rnd)
         {
-            List<int> LotteryLine = new List<int>();
+            List<int> lotteryLine = new List<int>();
 
             for (int a = 1; a < 7; a++)
             {
                 int LuckyDip = LineGenerator(rnd);
 
-                if (LotteryLine.Contains(LuckyDip))
+                if (lotteryLine.Contains(LuckyDip))
                 {
                     GetWinningNumbers(rnd);
                 }
+
                 else
                 {
-                    LotteryLine.Add(LuckyDip);
+                    lotteryLine.Add(LuckyDip);
                 }
             }
 
-            LotteryLine.Sort();
-            return LotteryLine;
+            lotteryLine.Sort();
+            return lotteryLine;
         }
 
         public static int LineGenerator(Random rnd)
@@ -90,23 +91,25 @@ namespace LotteryApp.Helpers
 
         public static List<int> GetWinningNumbers(Random rnd)
         {
-            List<int> WinningNumbers = new List<int>();
+            List<int> winningNumbers = new List<int>();
 
             for (int a = 1; a < 7; a++)
             {
-                int WinningNumber = WinnerNumbersGenerator(rnd);
+                int winningNumber = WinnerNumbersGenerator(rnd);
 
-                if (WinningNumbers.Contains(WinningNumber))
+                if (winningNumbers.Contains(winningNumber))
                 {
                     GetWinningNumbers(rnd);
                 }
+#
                 else
                 {
-                    WinningNumbers.Add(WinningNumber);
+                    winningNumbers.Add(winningNumber);
                 }
             }
-            WinningNumbers.Sort();
-            return WinningNumbers;
+
+            winningNumbers.Sort();
+            return winningNumbers;
         }
 
         public static int WinnerNumbersGenerator(Random rnd)
@@ -115,25 +118,25 @@ namespace LotteryApp.Helpers
             return WinningNumbers;
         }
 
-        public static List<int> WinningCalculator(List<int> OneLine, List<int> WinningLine)
+        public static List<int> WinningCalculator(List<int> oneLine, List<int> winningLine)
         {
-            List<int> Winners = new List<int>();
+            List<int> winners = new List<int>();
 
-            foreach (int number in OneLine)
+            foreach (int number in oneLine)
             {
-                if (WinningLine.Contains(number))
+                if (winningLine.Contains(number))
                 {
-                    Winners.Add(number);
+                    winners.Add(number);
                 }
             }
 
-            return Winners;
+            return winners;
         }
 
-        public static int PrizeCalculator(List<int> Winners)
+        public static int PrizeCalculator(List<int> winners)
         {
             int Prize = 0;
-            switch (Winners.Count)
+            switch (winners.Count)
             {
                 case 1:
                     Prize = 10;
